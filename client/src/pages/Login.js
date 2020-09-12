@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLogIn } from '../action';
 
 const layout = {
   labelCol: {
@@ -33,8 +35,11 @@ const LoginFormBlock = styled.div`
 `;
 
 const Login = () => {
-  const submitLogin = (e) => {
-    e.preventDefault();
+  const isLogin = useSelector((state) => state.logInReducer.isLogin);
+  const dispatch = useDispatch();
+
+  const submitLogin = () => {
+    dispatch(setLogIn());
   };
 
   const [email, setEmail] = useState('');
@@ -47,6 +52,7 @@ const Login = () => {
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
   };
+
   return (
     <LoginFormBlock>
       <h2>Log in</h2>
@@ -56,7 +62,7 @@ const Login = () => {
         initialValues={{
           remember: true,
         }}
-        onSubmit={submitLogin}
+        onFinish={submitLogin}
       >
         <Form.Item
           label="Email"
