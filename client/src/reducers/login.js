@@ -1,7 +1,7 @@
 import { SET_LOGIN, SET_LOGOUT } from '../action/type';
 
 const initialState = {
-  isLogin: true,
+  isLogin: false,
 };
 
 const logInReducer = (state = initialState, action) => {

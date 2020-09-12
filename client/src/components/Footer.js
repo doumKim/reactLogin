@@ -5,9 +5,6 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
   height: 20vh;
   background: #f0f2f5;
   color: #000;

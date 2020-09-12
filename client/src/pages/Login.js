@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const layout = {
   labelCol: {
@@ -19,32 +20,56 @@ const tailLayout = {
 
 const LoginFormBlock = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 80vh;
+
+  & h2 {
+    font-size: 2.3rem;
+    margin-bottom: 50px;
+    text-align: center;
+  }
 `;
 
 const Login = () => {
+  const submitLogin = (e) => {
+    e.preventDefault();
+  };
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
   return (
     <LoginFormBlock>
+      <h2>Log in</h2>
       <Form
         {...layout}
         name="basic"
         initialValues={{
           remember: true,
         }}
+        onSubmit={submitLogin}
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="Email"
+          name="email"
           rules={[
             {
               required: true,
-              message: 'Please input your username!',
+              message: 'Please input your email!',
+              type: 'email',
             },
           ]}
         >
-          <Input />
+          <Input onChange={handleChangeEmail} value={email} />
         </Form.Item>
 
         <Form.Item
@@ -57,7 +82,7 @@ const Login = () => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password onChange={handleChangePassword} value={password} />
         </Form.Item>
 
         <Form.Item {...tailLayout} name="remember" valuePropName="checked">
@@ -65,8 +90,15 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button
+            style={{ marginRight: '30px' }}
+            type="primary"
+            htmlType="submit"
+          >
+            Log in
+          </Button>
+          <Button type="primary" htmlType="">
+            <Link to="/signup">Sign up</Link>
           </Button>
         </Form.Item>
       </Form>
